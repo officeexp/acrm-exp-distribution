@@ -1,0 +1,262 @@
+3/2/2026 v104: - Group-related fields were added to the `Contact` entity to support adding a contact to a facility.
+27/1/2026 v103: - Added `InvoiceBatchBusinessUnit`, `InvoiceBatchBusinessUnitBasic`, `InvoiceBatchBusinessUnitDeletion` entities
+27/1/2026 v102: - Disable pagination on `InvoiceBatch` and `InvoiceBatchBasic` entities due to a bug on the API-side
+23/1/2026 v101: - Added `InvoiceBatchDeletion`, `InvoiceItemDetailDeletion` entities
+23/1/2026 v100: - Added `InvoiceBatch`, `InvoiceBatchBasic`, `InvoiceItemDetail`, and `InvoiceItemDetailBasic` entities
+14/1/2026 v99: - Implemented pagination for `ClientOrder` records retrieval.
+7/1/2026 v98: - Implemented validation to prevent assigning an empty date when executing an extra task during entity creation.
+5/1/2026 v97: - Increased the timeout of the `AuthGroupPrivilege_Bulk` entity to 5 minutes
+- Updated the dialog form to prevent UI freezing (Part 1 of performance improvements).
+- Updated the API definition based on the 18 Dec 2025 API changes.
+- Added `RetentionGLCode` field in `BillingRate*` entities.
+- Removed `IsVendorInvoice` field in `ClientOrderBillingRate*` entities.
+- Added `CurrentStatusType` and `CurrentWing` in `Client` entity.
+- Added `Skip` and `Limit` in the filter for the `Client` entity.
+- Added `SkipUserAccessCheck` and `OrderBy` in the filter for the `Report` entity.
+18/12/2025 v96: - Improved performance of the `ResidentNo` and `OldResidentNo` caches used in lookups.
+- Added the `ClientFindBulkClients` entity.
+- When opening an existing Excel file for the first time (no other opened file), the default connection will now match the file's connection to improve usability.
+18/12/2025 v95: - Add a search bar to allow searching for table names when adding a new data source.
+- Relabel `Entities[].EntityID` to `Entities[].ClientID` in `FormEntry` entity.
+- By default, the currently selected connection is shared across all workbooks to prevent confusion.
+- Introduce a new setting, `Use a separate active connection for each workbook`, which makes the selected connection specific to the current workbook only (similar to the original behaviour, but more specific).
+- Add `acrm` as the agent to make the API easier to identify.
+1/12/2025 v94: - Added delete support for the `UserBusinessUnit` and `UserGroupBusinessUnit` entities. Rows can now be deleted when the internal status is set to `Delete`.
+26/11/2025 v93: - Added `AuthGroupPrivilege_Bulk` and `AuthGroupFileType_Bulk` entities
+- To delete rows in the new bulk entities above, set `RecordState` to `Deleted` and publish.
+- `AuthGroupPrivilege_Bulk` has specific API logic that will always attempt to create a record when `RecordState` is `Active` and `Created.DateUtc` is empty, which can produce a duplicate key error. To prevent this, either publish an `Active` row only for new privileges or provide a non-empty `Created.DateUtc` value (any value won't matter, or obtain it by refreshing the data first).
+- Added the connection name in the publish summary message
+28/10/2025 v92: - Fixed the `Client` entity when adding fee cap as there was an error when publishing a new client: Not Created at Step 3 of 6 – Update fee cap: Unexpected character encountered while parsing value: Path 'EntryToCareDate'
+- Added `Use2025FeeArrangements` in the `Client` entity for the fee cap
+- Added `Use2025FeeArrangements` as the default selected fields in `FeeCapStatus_EditFeeCapExternalAmounts` entity
+- Added `InvoiceItemID` in `Deposit` entity (available but not selected by default in imports)
+- Added `ExcludeJournalTypes` to the find criteria in `Journal` entity
+- Updated `BillingRateSubType` to include `FeeRespiteAccommodation`, `FeeHotellingContribution`, `FundingHotellingSupplementReduction` and `FundingNonClinicalCareSupplementReduction`
+- Updated `InvoiceItemSubType` to include `FeeHotellingContribution`, `FundingHotellingSupplementReduction`, and `FundingNonClinicalCareSupplementReduction`
+18/9/2025 v91: - As part of the API change detection process, new and updated fields and filters have been identified. The changes are listed below.
+- `OrganizationBankAccount` entity: Added `ABAFileNamePrefix`
+- `BillingRateSubType`: Updated to include `FeeHigherEverydayLiving`, `NonClinicalCareContribution`, `HotellingSupplement`, `NonClinicalCareSupplement`, `FeeCappingLifetime2025Threshold`
+- `FeeCapStatusThresholdType`: Updated to include `Lifetime2025`
+- `InvoiceItemSubType`: Updated to include `HigherEverydayLivingFee`, `NonClinicalCareContribution`, `HotellingSupplement`, `NonClinicalCareSupplement`
+- `Client` entity: Added `HipsResponse`, `Ihi`, `IhiStatus`, `IhiSyncStatus`, `MhrParticipationStatus`, `SimilarNameFlag` (available but not selected by default in imports)
+- `Client` filters: Added `useExcludeDischargedV2`
+- `ClientGroupStatus` entity: Added `SimilarNameFlag` (available but not selected by default in imports)
+- `Bed` filters: Added `BathroomsCount`, `BedStatusStopDateUtc`, `ExtraServices`
+- `BusinessUnit` filters: Added `BusinessUnitType`
+- `BusinessUnitStatus` filters: Added `Statuses`
+- `BusinessUnitStatusDefault` filters: Added `Type`
+- `ClientGroupStatus` filters: Added `StatusReason3`
+- `ClientAllergy`, `ClientAllergyBasic`, `ClientDiagnosis`, `ClientDiagnosisBasic` entities: Added `RecordStateReason`
+- `Deposit` entity: Added `RetainedAmount`
+- `FeeCapStatus` entity: Added `EndDate`, `IsDAPIndexed`, `IsRetentionEligible`
+- `FeeCapStatus` filters: Added `IsRetentionEligible`
+- `EditExternalFeeCapDetails` and `FeeCapStatus_EditFeeCapExternalAmounts` entity: Added `IsDAPIndexed`, `IsRetentionEligible`, `Use2025FeeArrangements` (available but not selected by default)
+- `ClientAllergy` filters: Added `AllergyTypes`, `AllergyCodes`
+- `Group` filters: Added `BusinessUnitTypes`
+- `FunderContact` entity: Added `SimilarNameFlag` (available but not selected by default)
+- `User` entity: Added `FileTypes`
+- `User` filters: Added `EmailAddress`
+- `Form` filters: Updated filters
+- `FormCategory` entity: Added missing filters
+16/9/2025 v90: - Added `AllergyTable`, `Allergy`, `AllergyBasic`, `DiagnosesTable`, `Diagnosis`, `DiagnosisBasic`, `ClientAllergy`, `ClientAllergyBasic`, `ClientAllergySource`, `ClientAllergySourceBasic`, `ClientDiagnosis`, `ClientDiagnosisBasic`, `ClientDiagnosisSource`, and `ClientDiagnosisSourceBasic` entities
+22/8/2025 v89: - Added `JournalItemBasic` entity
+- *Important Note*: As previously stated, physical deletion of a `JournalItem` is not possible when it is linked. This can actually be achieved by:
+1. Updating the `JournalItem` to set `ReferenceJournalItemID` to 0
+2. Physically deleting the linked `JournalItem` records
+3. Physically deleting the `InvoiceItem`, which then physically deleting `ClientOrderBillingRateDeletion` can proceed
+* This approach should be used with caution and tested thoroughly in a test environment prior to execution."
+22/8/2025 v88: - Added the `ClientOrderBillingRateDeletion`, `JournalDeletion`, `JournalItemDeletion`, `InvoiceItem`, and `InvoiceItemDeletion` entities.
+- Important: While the `ClientOrderBillingRateDeletion` entity is available, it does not allow physical deletion if an `InvoiceItem` is linked to it, since cascade deletion is not configured. To delete an `InvoiceItem`, its related `JournalItem` must also be deleted. However, if a `JournalItem` is referenced by another record (which also the reference of this `JournalItem` i.e., linked item), the deletion cannot be performed via API and instead requires an SQL script to delete multiple `JournalItem` records in single command.
+- Moved all deletion-related entities to the end of the entities list.
+- Renamed the `JornalItem` entity (missing 'u') to `JournalItem`.
+- Fixed the `ClientOrderBillingRate` entity, which previously incorrectly treated some mandatory fields as primary keys.
+22/8/2025 v87: - Added the `InvoiceDeletion` entity. Based on the table relationships, a physical delete will also remove related records in `InvoiceOutputs`, `InvoiceItems`, `InvoiceNotes`, and `TemporarySubsidyJournalItem`. Direct manipulation of invoice records is not recommended under normal circumstances, and this action requires thorough testing and review before execution.
+15/8/2025 v86: - Fixed an issue where non-string fields (e.g., numbers) were sometimes published with the wrong value, adding an extra “.0” instead of keeping the original value. Example: "2222" in Transactions Type was incorrectly sent as "2222.0"
+4/8/2025 v85: - Fixed an issue where fields of type 'byte' (small integers) were incorrectly interpreted as decimal numbers during publishing. This caused issues in cases such as publishing the total and depth values in the Group entity.
+14/7/2025 v84: - Fixed `Deposit` filter
+2/7/2025 v83: - Added `ClientDeletion` entity
+- This new entity allows for the deletion of Client records, intended for use when invalid records are unexpectedly imported. Use with caution, as there is an option to perform a physical deletion, which will automatically remove all related records.
+- Special handling related to Bed Status is described below.
+- During the test, surprisingly, the Bed Status record was also deleted due to its foreign key relationship with the Client record. In a typical scenario, you would have two bed statuses: Vacant and Occupied. Only the Occupied status is deleted, since it's the one linked to the client. To restore the bed to its initial state, you can recreate the Bed Status with a status of Vacant and no stop date. This acts as a workaround to effectively remove the stop date from the original record, returning the bed to an available state.
+30/6/2025 v82: - Increased the journal filter limit to 10 in `JournalItem` entity
+30/6/2025 v81: - Added the `Invoice` and `InvoiceBasic` entities
+30/6/2025 v80: - Added the `Journal` and `JournalItem` entities
+- Added simplified copies of the `Journal` and `JournalItem` entities, named `JournalBasic` and `JournalItemBasic`. These versions exclude lookup fields and are intended for efficient imports using direct IDs, even when the original records are inactive or marked as deleted, for example, when updating old journal items.
+26/6/2025 v79: - Fixed the issue where form entries couldn’t be created successfully. Dependencies are now correctly calculated based on the appropriate rules defined in the form.
+- Improved the publish summary message
+23/6/2025 v78: - Fixed the date conversion logic to prevent time zone shifts when the input is not a UTC datetime
+23/6/2025 v78: - Implement a check for non-standard error responses returned by the API
+20/6/2025 v77: - Updated the filter criteria for form entries to ensure correct filtering by form and/or form sub type
+- Adjusted behavior to avoid retrieving cached data when opening the filter dialog for the first time, unless there are values that require lookup cache retrieval
+19/6/2025 v77: - Added error handling to ensure errors are displayed in the `Publish Message Log`, even if they fall outside the usual flow
+- Added a publish summary to the log showing the number of processed rows, errors, and other relevant details
+- Display all forms when performing a FormID lookup
+19/6/2025 v77: - Corrected an error in the amount conversion logic
+19/6/2025 v77: - Fixed an issue with date format conversion
+19/6/2025 v77: - Fixed an issue where the row count was used incorrectly during publishing
+19/6/2025 v77: - Adjusted the JSON file to reflect the updated version
+19/6/2025 v77: - Enums are now retrieved as text instead of number values by default
+- A new setting `Show Enum as number` has been added to allow configuring enum retrieval as numbers
+- A new setting `Enum validation type` has been added to select the validation type on enum fields
+- Add a cell validation to enum columns which the cell supports both number and text of enum values. When the text value is not in the list, override validation by entering any number.
+- The Excel table creation logic has been updated to prevent issues where changes made in Excel without the Add-in could cause the table to appear as having 0 rows when reopened with the Add-in
+- Added `FormEntry` entity
+17/6/2025 v76: - Improved the earlier fix by implementing a more suitable solution
+16/6/2025 v76: - Fixed the logic to correctly start the lookup from the appropriate index when the list contains an empty element. Previously, this caused an error:
+"The lookup criteria of '{emptyFilter.Name}' for '{fi.Name}'{label} must not be empty"
+12/6/2025 v76: - Added the `ClientGroupForClientDeparture` entity to support client departure. Steps:
+1. Add the `ClientGroupForClientDeparture` entity.
+2. Fill in or refresh the data then update the necessary fields
+3. Ensure the Status is set to Discharged (or another appropriate status) with a new Start Date
+4. Publish
+- Added `Update date` to the About form
+- Closing the changelog form no longer closes the about form immediately
+2/5/2025 v76: - Removed the `Religion` field from the default recommended fields in the `Client` entity, as it's not visible in the UI and is being replaced with the one in client extension fields.
+14/4/2025 v75: - Updated the extension lookup to use the `Description` field instead of the `Value` from the code table. For example, the `AC_Religion` field will now accept 'Catholic' or 'Anglican' rather than 'CAT' or 'ANG' to ensure consistency with the UI.
+- Relabeled `Timeout Override` to `Timeout Override (seconds)`.
+11/4/2025 v74: - Removed all departure-related fields from the default fields in `Client` entity. These will be handled in a separate entity later, as they aren't part of the default or commonly used scenarios.
+- Added `Timeout Override` in the workbook's settings to allow values above the default 60 seconds, allowing for a workaround when publishing Auth Group Privilege during high server load before the group API call is implemented.
+- Increased the default timeout to 5 minutes for retrieving `Client_Lookup` entity, as it can take longer, especially when fetching `OldResidentNo`, which isn't available in the light-type of payload.
+2/4/2025 v73: - Added `Departure.StatusName`, `Departure.StatusReason`, `Departure.StatusReason2`, `Departure.StatusReason3`, `Departure.StatusComments`, and `Departure.StartDateUtc` to the `Client` entity to enable client departure immediately after record import.
+- When publishing a table, a dialog message now displays the number of rows in the prompt. This helps verify the row count from Excel to ensure accurate identification.
+- When the lookup is unsuccessful, a more informative error message will be provided instead of "Unable to lookup the value", which could imply that the value doesn't exist. This will be helpful, as a timeout during the `OldResidentNo` lookup could trigger a lookup error which now provides a clearer information.
+- The cache form has been updated to display the lookup name instead of the entity which is more useful. Also, the last error message is now shown in the cache grid.
+- Fixed the `Contact` entity to also create the `ClientRelationshipDetail` when linking the `Contact` to a `Client`.
+- Fixed the filter on code table entries when entering `Props`-related values. The issue was caused by the special encoding in `Props`, which differs from standard encoding. Now, when entering `ParentEntityType` in `Props(0).n` and `Client` in `Props(0).v`, only `Client`-related entries will be displayed in the table.
+- Changed the filter text colour to light gray.
+- Minimized unnecessary information in the log.
+31/3/2025 v72: - Added `ResidentNo`, `OldResidentNo`, `ClientRelationship.EntityRelationshipTypeValue` (up to 5 types) to the `Contact` entity to link contacts with residents during import.
+- Added support for extending `Client` from the existing `ClientID` and `Contact` from the existing `ContactID`, allowing the field compatibility with the version based on the selected `ClientID` or `ContactID`.
+- Updated the filter form to prevent the combo and numeric controls from changing values when scrolling with the mouse wheel. Instead, the mouse wheel now scrolls the form's vertical scrollbar to avoid unintended changes.
+- Updated the numeric filter to allow entering a value of 0 and simply empty it when no value is provided. When the control is left and the colour is grey, it indicates that the value is empty, even though the control displays 0.
+28/3/2025 v71: - Fixed an issue with bed lookup where the bed location is empty, such as no group below the facility, incorrectly caused the lookup to always return empty.
+- Fixed a minor issue when updating the `Client` entity with an empty bed.
+27/3/2025 v70: - Resolved the issue with the mismatched extension field that was causing an out-of-memory error when retrieving `Client` entities with extensions.
+- Added a setting to handle values that Excel cannot process, using the default value of `OverrideField`.
+26/3/2025 v69: - Added `ClientBankAccount.AccountNumber`, `ClientBankAccount.AccountTitle`, and `ClientBankAccount.BSB` to the `Client` entity to enable importing the resident's bank account along with the client import process.
+- Fixed the issue where `EditFeeCapExternalAmounts` was not included during the import of a `Client` entity.
+25/3/2025 v68: - Fixed the `PathFinder` issue with `Client` refresh when extended to include extension fields.
+- Added `ResidentNo` and `OldResidentNo` to all `Client`-related entities (`ClientBusinessUnit`, `ClientGroup`, `ClientGroupStatus`, `ClientAddress`, `ClientCommunicationMethod`, `ClientBankAccount`, `Deposit`, `ClientRelationshipDetail`)
+- Added `ClientBusinessUnitStatus` entity.
+- Added an agreement checkbox to the login form for application usage.
+- Hidden the `UseProxy` and `Proxy` parameters in the login form.
+- Hidden the `Contact_Extension3` entity.
+- Modify the cache form to display additional action buttons for expiring specific cache entries.
+- Changing the entity within the same login session will automatically expire the related cache. For example, adding a new code table will expire the `CodeTable` cache.
+24/3/2025 v67: - Added the ability to extend from the `Client` and `Contact` entities, allowing the extensions to be added automatically. The new extension will be created as a separate entity with a name based on the BUID, e.g., `Client_BUID_272`.
+- The currently supported extension types are:
+	- String
+	- String with expiry
+	- Numeric
+	- Numeric range
+	- Boolean
+	- Date
+	- Date range
+	- Choice
+	- Choice with Other
+	- Choice from CodeTable
+	- Entity
+	- Choices (up to 3 fields)
+- Expanded the EntityIDs filter to 10 IDs, allowing filtering of more clients in the `ClientBusinessUnit` entity.
+- Added `OldResidentNo` to `FeeCapStatus`, `FeeCapStatus_EditFeeCapExternalAmounts`, `ClientRelationship` entities.
+- The ordering when both resident numbers and `ClientID` are entered: First, `ResidentNo` or `OldResidentNo` (evaluated from right to left), followed by `ClientID`. The rightmost value takes precedence, because `ClientID` is overridden by the rightmost columns. Remove `OldResidentNo` if not needed, as it slows down cache retrieval.
+- Added the ability to look up the filter for Business Unit and Code Table. Instead of entering a number manually, users can now select from lookup values.
+14/3/2025 v66: - Added `EntryToCareDate`, `ExternalAnnualAmount`, and `ExternalLifetimeAmount` (under `EditFeeCapExternalAmounts`) to the `Client` entity to enable automatic fee cap updates during resident/client import.
+- If the `EntryToCareDate` is empty, no fee cap information will be created. If fee cap external amounts are needed after the resident is created, use the `FeeCapStatus_EditFeeCapExternalAmounts` entity.
+- Added the `FeeCapStatus_EditFeeCapExternalAmounts` entity, which supports publishing only to manage fee cap information for existing residents in case it wasn't completed during the resident/client import.
+- Added `FeeCapStatus` entity.
+- Added `ResidentNo` and removed the `EntityRelationshipTypeEntryID` field in the `ClientRelationship` entity to simplify data import.
+- *Important note on the behavior of 'ResidentNo' below*
+- The first time the entity is used, it may take longer as it prepares the cache from all records. If speed is a priority during first-time use, consider removing the `ResidentNo` field from the table.
+- The cache for Resident No lookups will be retained for 6 hours. If any changes are made, clear the cache by clicking the `Clear cache` button.
+- If `ResidentNo` is provided, the system will update the `ClientID` value. If both `ResidentNo` and `ClientID` are provided, `ResidentNo` takes priority, and `ClientID` will be overridden with the result from the lookup. However, if `ResidentNo` is not provided, the system will continue to use `ClientID` directly to accommodate records that do not contain `ResidentNo`.
+10/3/2025 v65: - Added filter criteria to the `Deposit` entity.
+6/3/2025 v64: - Added `ClientBankAccount` and `Deposit` entities.
+6/3/2025 v63: - Fixed the update on the `FunderRule` entity by using 'get multiple records' instead of 'get single record', as it is not available through the API.
+- Replaced `FunderID` with `FunderName`, `BUID` with `BUName`, `ServiceTableID` with `ServiceTableName`, and `DefaultFunderServiceID` with `DefaultFunderServiceName` in `FunderBusinessUnit` entity.
+- Added `StatusName` to the `FunderBusinessUnit` entity.
+- Updated the `BusinessUnitStatus` entity to function differently by utilizing Props lookup (not `OverrideTruncate`).
+- Fixed the cell refresh issue that prevented the table from expanding, which could have caused the table to expand unexpectedly.
+5/3/2025 v62: - Enhanced cell update performance for processing larger datasets.
+- Added `ACRM_InternalRecordState` in the recommended fields for `ClientGroup` entity.
+- Added `Bed` in the recommended fields for `ClientGroupStatus` entity.
+- Fixed the update process for `ClientGroup`.
+3/3/2025 v61: - Updated the `CalculateBasedOnAdvisedMaxDAC` field to be recognized as not empty when importing DAC in the `ClientOrderBillingRate` entity. This change also ensures that all boolean values are treated as not empty when a value is provided (e.g., `FALSE` or `TRUE` text).
+1/3/2025 v60: - Added a `Groups (0).Bed` column to allocate beds during `Client` import. The format of this new field follows the structure: `BedLocation > BedName`. For example, `Sea Side > SS Bed 1.`
+- Added `ClientBusinessUnit`, `ClientGroup`, `ClientGroupStatus`, `ClientAddress`, and `ClientCommunicationMethod` entities.
+- Added the ability to view cache values by double-clicking a row in the `Cache` form.
+25/2/2025 v59: - Added the Business Unit's `StartDateUtc` to the `Contact` and `Client` entities.
+- Removed `WindowsTZEntryID` and replaced `TZIDEntryID` with `Timezone` which simplify the import process in `Client` entity.
+- Added `Groups` fields in `Client` entity. Bed information has not been added yet because this relies on a different API call.
+- Fixed in entities using `CommunicationMethods` and `Addresses`, which can now be updated from the main entity.
+- Added `Settings` button.
+- Modified `Refresh All` to enable refreshing only tables that share the same entity.
+21/2/2025 v58: - Added `Client` entity.
+- Removed `Global`, `ContactType`, `BUID`, `BusinessUnitStatusID`, `AddressTypeEntryID` and `CommunicationMethodTypeEntryID` from the `Contact` entity to streamline record creation.
+- Added `Cache` and `Clear cache` buttons
+- Modified the logic when opening an existing file to refresh and update the field definitions, to ensure that logic in the new entity definitions is applied.
+20/2/2025 v57: - Removed `ContactTypeEntryID` from the `Contact` entity, as it will now be automatically looked up from `ContactTypeEntryValue` using the new code table entry lookup feature.
+- Added a field template to simplify the definition of the field extension.
+- Fixed `PropertyBagEx` and `PropertyBag` to properly handle overrides with empty values.
+19/2/2025 v56: - Modified the `PropertyBagEx` and `PropertyBag` to use `OverrideTruncate` which allow the changes into smaller properties and allow existing properties to be overridden with empty values.
+- Modified `ClientRelationship` and removed the unused `ClientID` to simplify the import.
+- Added the ability to look up from another entity, primarily for retrieving code table entries or other lookups in the table.
+- Updated `Contact_Extension3` to retrieve values from the code table entry for `Field_AC_Not_Permitted`.
+5/2/2025 v55: - Added access to Extensions 3.0 for the `Contact` entity, with the name of `Contact_Extension3`.
+- Set a default for `ClientRelationship` to ensure that `ClientRelationshipDetails` is created when a new record is added. However, updates must still be done using the `ClientRelationshipDetails` entity due to API limitations.
+5/2/2025 v54: - Added `ClientRelationship`, `ClientRelationshipDetails`, `ContactBusinessUnit`, `ContactAddress`, `ContactCommunicationMethod` entities.
+- Updated `Contact` entity to remove `BUID` which now use the array to initialize instead.
+- Fixed the missed filter for the `FunderBusinessUnit`.
+- Standardize and reorder address, communication method, and person's name fields to show as in UI (impact all entities which have these).
+- Added `Origin` with data model information on each entity to allow for future references and other purposes related to documentation
+4/2/2025 v53: - Added logout button.
+- Added `Contact` entity.
+24/1/2025 v52: - Added `UserGroupBusinessUnit` entity.
+22/1/2025 v51: - Added `UserBusinessUnit` and `User` entities.
+- Renamed 'Change Log' into 'Changelog'
+21/1/2025 v50: - Expanded the recommended fields for BU settings, entity settings, and system settings to include all 50 Props, aligning with the maximum array size of 50.
+15/1/2025 v49: - Created `BillingRateTableWithMoreBUs` entity for handling 60 BUs
+19/11/2024 v48: - Resolved the issue with updating the form category, which was previously not working.
+- Fixed the client order initialization to ensure that the EntryDate is properly calculated during creation of a new client order.
+25/10/2024 v47: - Enabled table selection without fields by either double-clicking the table or clicking the `OK` button.
+- Added new entities: `CodeTableEntry_City`, `ClientOrder`, `ClientOrderBillingRate` (Fee, DAC, DAP, Bond, Funding, DMF, Fee_UpdateAndExpire), and `DeferredManagementFeeExtension`.
+- Introduced `CopyFrom` to simplify entity duplication.
+- Updated `BillingRateWithLink` to leverage `CopyFrom`.
+- Fixed the 'Skip Delete' flag to now show 'Y' or 'N' instead of a number.
+- Fixed the issue when trying to publish directly without clicking 'Add datasource' after changing the connection
+- Fixed the property bag initialize array to use OverrideNoTruncate instead of ClearWhenSelected which impacted the update of prop of code table entry into Client
+13/9/2024 v46: increased the privilege dependencies' array length into 20 instead of 10, added BillingRateTax entity, added changelog, hide refresh and publish all by default.
+28/6/2024 v45: added delete and deleted at the internal record state to delete auth group privilege and auth group reports.
+21/6/2024 v44: added auth group entities. updated the default array method from ClearWhenSelected into OverrideNoTruncate for PUT operator.
+11/6/2024 v43: added merge to recommended fields and update to billing rate's tax array
+23/5/2024 v42: added more information during publish. add 'zeroIsNotEmpty'.
+23/5/2024 v41: added import focused internal API for finance module
+15/6/2022 v40: updated UI
+8/6/2022 v38&v39: handling unknown field, partially adding the lookup logic
+6/6/2022 v37: Added client order data version, fixed the update data source to retain filter, removing unused internal record state, removing repeated URLs/BU in URL parameters and init parameters at filter, changing UI to be slightly better with confirmation dialog for more than one refresh or publish.
+1/6/2022 v36: added funder rule
+26/5/2022 v35: tls, invoice item detail
+23/5/2022 v34: remove invoiceId duplication in journal item filter
+20/5/2022 v33: added invoice, invoice item and invoice batch entities
+17/5/2022 v32: Change to use form name in the FormEntryV3_RMRVIntake_GroupAdmission_Combined's search parameter, added new props in client order billing rate, run get per row for funding form
+9/5/2022 v31: Adding paymentMethod in client order billing rate entity
+6/5/2022 v30: fixed the issue when opening multiple files and trying to update table with its data source mixed up issue - caused by duplicated Id, separating selected active connection per workbook
+3/5/2022 v29: Adding bank account filters
+26/4/2022 v28: Adding entry date to client order, added client billing rate amount overrides and other fields from props
+7/4/2022 v27: Default funding form entity to include payload, client group update
+30/3/2022 v26: Adding funding form entity
+28/3/2022 v25: No content update is accepted for ClientOrderBillingRate
+25/3/2022 v24: Added nil as default filter value in client relationship
+24/3/2022 v23: Increased default timeout to 60 and added ability to change in configuration
+24/3/2022 v22: Added two new client extentions
+22/3/2022 v21: Change client order billing order with units, 
+18/3/2022 v20: Adding Business unit entity
+18/3/2022 v19: Adding default find-all parameters, adding funding BU find filter, changes to entity labels with ID information
+17/3/2022 v18: disable funder BU update, Adding funding rules inside funding BU
+17/3/2022 v17: Adding bank account and enable funder BU update
+11/3/2022 v16: Fixed missing type, adding form entry Id field at client group status entity in the base config
+4/3/2022 v15: Adding readonly fields and added client relationship entity in the base config
+11/2/2022 v14: Allow import configuration from file and automatic base and sample files creation
+29/9/2021 v13: Fixed the 'double' conversion into 'decimal' data type from json
+26/8/2021 v12: Fixed the issue when loading from template and unable to publish straight away (object reference).
+30/7/2021 v11: Added refresh single table and bug fix unable to refresh (object reference) after load and init filter not saved.
