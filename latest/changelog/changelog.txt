@@ -1,4 +1,6 @@
-13/2/2026 v105: - Reactivate the Ribbon again after adding a new data source for more convenient access.
+16/2/2026 v106: - Reactivate the Ribbon again after adding a new data source for more convenient access.
+16/2/2026 v105: - Added a setting to configure the pagination exit logic.
+- Added informational logging that explains why paginated retrieval completed.
 3/2/2026 v104: - Group-related fields were added to the `Contact` entity to support adding a contact to a facility.
 27/1/2026 v103: - Added `InvoiceBatchBusinessUnit`, `InvoiceBatchBusinessUnitBasic`, `InvoiceBatchBusinessUnitDeletion` entities
 27/1/2026 v102: - Disable pagination on `InvoiceBatch` and `InvoiceBatchBasic` entities due to a bug on the API-side
