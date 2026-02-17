@@ -1,3 +1,4 @@
+18/2/2026 v107: - Increased the timeout and page size for the `ClientOrder` entity to balance the performance and RAM consumption when retrieving larger datasets.
 17/2/2026 v106: - Improved pagination behavior to lower memory usage on large data.
 - Resolved an issue where refreshing an empty table with no results could cause a logged error of: "Cannot shrink the table. Please clear the table first."
 - Reactivate the Ribbon again after adding a new data source for more convenient access.
