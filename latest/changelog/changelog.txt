@@ -1,3 +1,17 @@
+25/2/2026 v109: - Updated entity definitions to align with API version 24/02/2026.
+- Added `FileFormat` field to the `OrganizationBankAccount` entity.
+- Added `StatusManagementLastUpdatedDateUtc` and `StatusManagementLastUpdatedUserName` fields to `BedStatus`, `ClientGroup`, and `ClientGroupStatus` entities.
+- Added `FinanceData` to the `ClientGroupStatus` entity. This field will only be used by the API when there is an existing status.
+- Added `IndexationStartDate` to the `FeeCapStatus` entity.
+- Based on testing, `IsDAPIndexed` is currently not used by the API but has been retained for possible future use.
+- Added `IndexationStartDate` to the `FeeCapStatus_EditFeeCapExternalAmounts` entity.
+- Moved `IsRetentionEligible` and `Use2025FeeArrangements` to the `FeeCapStatus_Lifetime2025FeeCapArrangements` entity.
+- Introduced new `FeeCapStatus_Lifetime2025FeeCapArrangements` entity and included it under the `Client` entity sub-task for `Lifetime2025FeeCapArrangements*` fields.
+- The original `EditFeeCapExternalAmounts*` fields in `Client` entity will be used for the pre-2025. Both tasks will be run when `EntryToCareDate` is provided.
+- Added new `FeeCapStatus_Edit2025FeeCapExternalAmounts` entity to align with API, which is similar to `FeeCapStatus_EditFeeCapExternalAmounts`, but for 2025+.
+- Added `OptionsCriteria` (alias `c`) to the `Collection of ReportInputControl` data type used by the `Report` entity.
+- Added `BinaryID` to the `Report` entity find criteria.
+- Fixed a minor issue where active copy cells could interfere the table resize process.
 23/2/2026 v108: - Added `FinalizeInvoice` and `FinalizeHistoricalInvoice` entities.
 - Note: `FinalizeHistoricalInvoice` is a wrapper for `FinalizeInvoice` and invoice status should be `ReadyForReview` only. Emptying `ClientIDs` will process all clients.
 - Added `IsDAPIndexed` and `IsRetentionEligible` default fields in `Client` and `FeeCapStatus_EditFeeCapExternalAmounts` entities
