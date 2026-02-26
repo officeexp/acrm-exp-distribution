@@ -1,3 +1,4 @@
+27/2/2026 v110: - Removed `IsDAPIndexed` from `Client` and the `FeeCapStatus*` entities.
 25/2/2026 v109: - Updated entity definitions to align with API version 24/02/2026.
 - Added `FileFormat` field to the `OrganizationBankAccount` entity.
 - Added `StatusManagementLastUpdatedDateUtc` and `StatusManagementLastUpdatedUserName` fields to `BedStatus`, `ClientGroup`, and `ClientGroupStatus` entities.
