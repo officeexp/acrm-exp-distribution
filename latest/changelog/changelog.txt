@@ -1,3 +1,6 @@
+27/2/2026 v112: - Add the ability to reference the previously released API definition instead of the latest version, since some environments may not yet be fully updated.
+- This can be achieved by updating the JSON file and changing `"ImportFromFile": "Import.base"` to `"ImportFromFile": "ImportPrevious.base"`.
+- A fix to the status verification, which was initially considered an error despite having completed successfully (`FeeCapStatus*` entities).
 27/2/2026 v111: - Updated entity definitions to align with API version 27/2/2026.
 - Removed recently added fields `SourceBusinessUnitType` and `TargetBusinessUnitType` in `ClientGroupStatus` and `FeeCapStatus_Edit2025FeeCapExternalAmounts` entities.
 - Added `TentativeStatusChangeDateUtc` field in `Client`, `ClientBusinessUnit`, and `ClientBusinessUnitStatus` entities.
