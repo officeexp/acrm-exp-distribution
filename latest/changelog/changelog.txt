@@ -1,3 +1,4 @@
+2/3/2026 v113: - Reshow the `IsDAPIndexed` field to maintain support for backward API versions until it is no longer available.
 27/2/2026 v112: - Add the ability to reference the previously released API definition instead of the latest version, since some environments may not yet be fully updated.
 - This can be achieved by updating the JSON file and changing `"ImportFromFile": "Import.base"` to `"ImportFromFile": "ImportPrevious.base"`.
 - A fix to the status verification, which was initially considered an error despite having completed successfully (`FeeCapStatus*` entities).
