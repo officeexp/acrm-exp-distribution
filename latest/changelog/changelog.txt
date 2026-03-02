@@ -1,3 +1,6 @@
+2/3/2026 v115: - Added `Retention_CalculateDepositRetentions` and `Retention_PostDepositRetentions` entities.
+- Usage: Refresh `Retention_CalculateDepositRetentions` by providing the `PostingDate` in the filter to retrieve the data, then copy the results to `Retention_PostDepositRetentions` for publishing.
+- A maximum of 5 retentions per client is currently configured.
 2/3/2026 v114: - Also restore `IsDAPIndexed` to the default fields for the `Client`, `FeeCapStatus`, and `FeeCapStatus_EditFeeCapExternalAmounts` entities for backward API versions until it is no longer available.
 2/3/2026 v113: - Reshow the `IsDAPIndexed` field to maintain support for backward API versions until it is no longer available.
 27/2/2026 v112: - Add the ability to reference the previously released API definition instead of the latest version, since some environments may not yet be fully updated.
