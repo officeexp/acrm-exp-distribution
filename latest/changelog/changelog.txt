@@ -1,3 +1,4 @@
+3/3/2026 v116: - Added `DepositRefund` entity.
 2/3/2026 v115: - Added `Retention_CalculateDepositRetentions` and `Retention_PostDepositRetentions` entities.
 - Usage: Refresh `Retention_CalculateDepositRetentions` by providing the `PostingDate` in the filter to retrieve the data, then copy the results to `Retention_PostDepositRetentions` for publishing.
 - A maximum of 5 retentions per client is currently configured.
