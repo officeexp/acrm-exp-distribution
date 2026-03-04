@@ -1,3 +1,4 @@
+4/3/2026 v117: - Implemented a check to auto-update API base file based on repo data.
 3/3/2026 v116: - Added `DepositRefund` entity.
 2/3/2026 v115: - Added `Retention_CalculateDepositRetentions` and `Retention_PostDepositRetentions` entities.
 - Usage: Refresh `Retention_CalculateDepositRetentions` by providing the `PostingDate` in the filter to retrieve the data, then copy the results to `Retention_PostDepositRetentions` for publishing.
